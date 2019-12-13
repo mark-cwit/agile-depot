@@ -74,5 +74,17 @@ class ProductTest < ActiveSupport::TestCase
 	end
 
 
+	test "Title must be 10 chars or more" do
+		product = Product.new(title: 		"aaaaaaaaa",
+													description: "yyy",
+													price: 		1,
+													image_url: "fred.gif")
+		assert product.invalid?
+		assert product.errors[:title].any?
+
+		product.title = "aaaaaaaaaa";
+		assert product.valid?
+		assert_not product.errors[:title].any?
+	end
 
 end
